@@ -28,7 +28,7 @@
 .containerLeft {
     width: 50%;
     height: 100vh;
-    background-color: white;
+    background-color: #CFDBE7 ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,9 @@
 
 .fields input {
     border-radius: 5px;
-    border-color: #e69a49;
+    border: 2px solid rgb(156, 156, 156);
+    background-color:#CFDBE7;
+    outline: none;
     padding: 4px;
 }
 
@@ -61,7 +63,7 @@
     border: none;
     outline: none;
     color: white;
-    background-color: blue;
+    background-color: #e69a49  ;
     font-weight: 800;
     font-size: 15px;
     border-radius: 5px;

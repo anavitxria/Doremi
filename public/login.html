@@ -22,11 +22,11 @@
                 <h1>Login</h1>
                 <p>Bem vindo a Dorémi!</p>
                 <div class="fields">
-                    <label for="input_email">E-mail</label>
-                    <input type="text" id="input_email" placeholder="Digite seu email...">
-                    <label for="input_senha">Senha</label>
-                    <input type="text" id="input_senha" placeholder="Digite sua senha...">
-                    <button>Entrar</button>
+                    <label for="email_input">E-mail</label>
+                    <input type="text" id="email_input" placeholder="Digite seu email...">
+                    <label for="senha_input">Senha</label>
+                    <input type="text" id="senha_input" placeholder="Digite sua senha...">
+                    <button onclick="entrar()">Entrar</button>
                     <p>Já tem cadastro ? <a href="">Cadastre-se</a></p>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 <script>
 
     function entrar() {
-        aguardar();
+        // aguardar();
 
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;

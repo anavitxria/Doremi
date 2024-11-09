@@ -6,57 +6,121 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+CREATE DATABASE doremi;
+USE doremi;
 
-USE aquatech;
 
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+CREATE TABLE Professor (
+    idProfessor INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    email VARCHAR(45),
+    senha VARCHAR(10)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE Aluno (
+    idAluno INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    idade INT,
+    email VARCHAR(45),
+    senha VARCHAR(45),
+    nomeResponsavel VARCHAR(45),
+    telefoneResponsavel CHAR(11),
+    fkProfessor INT,
+    FOREIGN KEY (fkProfessor) REFERENCES Professor(idProfessor)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+CREATE TABLE Dashboard (
+    idDashboard INT PRIMARY KEY AUTO_INCREMENT,
+    pontuacaoTotal INT,
+    nivel INT,
+    fkAluno INT,
+    CONSTRAINT dashAluno FOREIGN KEY (fkAluno)
+        REFERENCES Aluno(idAluno)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE Jogos (
+    idJogos INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(45),
+    descricao VARCHAR(60)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+CREATE TABLE Pontuacao (
+    idPontuacao INT PRIMARY KEY AUTO_INCREMENT,
+    qtdPontuacao INT,
+    dtHora DATETIME, 
+    fkJogos INT,
+    CONSTRAINT pontuacaoJogos FOREIGN KEY (fkJogos)
+        REFERENCES Jogos(idJogos),
+    fkAluno INT,
+    CONSTRAINT pontuacaoAluno FOREIGN KEY (fkAluno)
+        REFERENCES Aluno(idAluno)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+CREATE TABLE ContagemNota (
+    idContagemNota INT PRIMARY KEY AUTO_INCREMENT,
+    nomeNota VARCHAR(45),
+    valor INT,
+    respostaCorreta VARCHAR(45),
+    fkJogos INT,
+    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
+        REFERENCES Jogos(idJogos)
+);
+
+CREATE TABLE JogoMemoria (
+    idJogoMemoria INT PRIMARY KEY AUTO_INCREMENT,
+    carta1 INT,
+    carta2 INT,
+    parValido INT,
+    fkJogos INT,
+    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
+        REFERENCES Jogos(idJogos)
+);
+
+CREATE TABLE IdentificacaoSons (
+    idIdentificacaoSons INT PRIMARY KEY AUTO_INCREMENT,
+    som INT,
+    instrumentoAssociado INT,
+    respostaCorreta VARCHAR(45),
+    fkJogos INT,
+    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
+        REFERENCES Jogos(idJogos)
+);
+
+CREATE TABLE QuizPerguntas (
+    idQuizPerguntas INT PRIMARY KEY AUTO_INCREMENT,
+    perguntas VARCHAR(80),
+    fkJogos INT,
+    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
+        REFERENCES Jogos(idJogos)
+);
+
+CREATE TABLE QuizRespostas (
+    idQuizRespostas INT PRIMARY KEY AUTO_INCREMENT,
+    respostas VARCHAR(80),
+    fkJogos INT,
+    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
+        REFERENCES Jogos(idJogos),
+    fkPergunta INT,
+    CONSTRAINT respostaPergunta FOREIGN KEY (fkPergunta)
+        REFERENCES QuizPerguntas(idQuizPerguntas)
+);
+
+INSERT INTO Aluno (nome, idade, email, nomeResponsavel, telefoneResponsavel, fkProfessor) VALUES
+    ('Ana', 8, 'ana@example.com', 'Raquel', '11963678765', 1),
+    ('Erick', 8, 'erick@example.com', 'Roberto', '11977781182', 2),
+    ('Mica', 10, 'mica@example.com', 'Elisângela', '11990050911', 1);
+
+INSERT INTO Professor (nome, email, senha) VALUES
+    ('Maria Silva', 'professor.maria@example.com', 'senha123'),
+    ('José Oliveira', 'professor.jose@example.com', 'senha456');
+    
+SELECT * FROM Aluno;
+SELECT * FROM Professor;
+
+SELECT 
+    Professor.*, Aluno.*
+FROM 
+    Professor
+JOIN 
+    Aluno ON Professor.idProfessor = Aluno.fkProfessor;
+    
