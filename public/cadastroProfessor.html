@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dorémi | Cadastro Professor</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/cadastro.css" />
+    <link rel="icon" href="./assets/icon/favicon2.ico" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
+
+<body>
+    <section class="container">
+        <div class="containerRigth"></div>
+
+        <div class="containerLeft">
+            <div class="contentForm">
+                <h1>Cadastro de Professor</h1>
+                <p>Bem vindo a Dorémi!</p>
+                <div class="fields">
+                    <label for="nome_input">Nome:</label>
+                    <input type="text" id="nome_input" placeholder="Digite seu nome...">
+                    <label for="email_input">E-mail:</label>
+                    <input type="text" id="email_input" placeholder="Digite seu e=mail...">
+                    <label for="senha_input">Senha:</label>
+                    <input type="password" id="senha_input" placeholder="Digite sua senha...">
+                    <button onclick="cadastrar_professor()">Cadastrar</button>
+                    <p>Já tem conta? <a href="./login.html">Faça o login</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+
+<script>
+
+    function cadastrar_professor() {
+
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == ""
+        ) {
+            alert("Preencha todos os campos")
+
+            if (nomeVar.length <= 1) {
+                alert("Nome deve ter mais que um caractere")
+                return false
+            }
+
+            if (emailVar.indexOf('@') == false && emailVar.indexOf('@') == false) {
+                alert("Insira um email valido")
+                return false
+            }
+
+            if (senhaVar < 6) {
+                alert("Insira uma senha válida")
+                return false
+            }
+
+            return false;
+        }
+
+        fetch("/usuarios/cadastrar_professor", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Cadastrado com sucesso")
+
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000");
+
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        return false;
+    }
+
+</script>

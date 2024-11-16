@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Dorémi | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
@@ -21,23 +21,23 @@
 
     <div class="containerLeft">
       <div class="contentForm">
-        <h1>Login</h1>
+        <h1>Cadastro de Aluno</h1>
         <p>Bem vindo a Dorémi!</p>
         <div class="fields">
-          <label for="nome_input">Nome</label>
+          <label for="nome_input">Nome:</label>
           <input type="text" id="nome_input" placeholder="Digite seu nome...">
-          <label for="idade_input">idade</label>
+          <label for="idade_input">Idade:</label>
           <input type="text" id="idade_input" placeholder="Digite sua idade...">
-          <label for="email_input">E-mail</label>
-          <input type="text" id="email_input" placeholder="Digite seu email...">
-          <label for="senha_input">Senha</label>
+          <label for="email_input">E-mail:</label>
+          <input type="text" id="email_input" placeholder="Digite seu e=mail...">
+          <label for="senha_input">Senha:</label>
           <input type="password" id="senha_input" placeholder="Digite sua senha...">
-          <label for="nomeResponsavel_input">nome Responsavel</label>
-          <input type="text" id="nomeResponsavel_input" placeholder="Digite o nome do seu Responsavel...">
-          <label for="telefoneResponsavel_input">telefone Responsavel</label>
-          <input type="text" id="telefoneResponsavel_input" placeholder="Digite o telefone do seu Responsavel...">
+          <label for="nomeResponsavel_input">Nome Responsável:</label>
+          <input type="text" id="nomeResponsavel_input" placeholder="Digite o nome do seu responsável...">
+          <label for="telefoneResponsavel_input">Telefone Responsável:</label>
+          <input type="text" id="telefoneResponsavel_input" placeholder="Digite o telefone do seu responsável...">
           <button onclick="cadastrar()">Cadastrar</button>
-          <p>Já tem conta? <a href="">Faça o login</a></p>
+          <p>Já tem conta? <a href="./login.html">Faça o login</a></p>
         </div>
       </div>
     </div>
@@ -48,7 +48,29 @@
 
 <script>
   // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
+  let listaProfessoresCadastrados = 0;
+  window.onload = listarUltimoProfessor();
+  
+  function listarUltimoProfessor(){
+        fetch(`/usuarios/listarUltimoProfessor`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(resposta => {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    listaProfessoresCadastrados = resposta[0].idProfessor;
+
+                });
+            } else {
+
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados do freezer p/ gráfico: ${error.message}`);
+        });
+    }
 
   function cadastrar() {
 
@@ -59,8 +81,6 @@
     var responsavelVar = nomeResponsavel_input.value;
     var telefoneRespVar = telefoneResponsavel_input.value;
    
-
-    // Verificando se há algum campo em branco
     if (
       nomeVar == "" ||
       idadeVar == "" ||
@@ -101,39 +121,22 @@
         return false
       }
 
-      finalizarAguardar();
       return false;
     }
 
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-    //   if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-    //     idEmpresaVincular = listaEmpresasCadastradas[i].id
-    //     console.log("Código de ativação válido.");
-    //     break;
-    //   } else {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-    //     finalizarAguardar();
-    //   }
-    // }
-
-    // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         idadeServer: idadeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
         responsavelServer: responsavelVar,
         telefoneRespServer: telefoneRespVar, 
-        // idEmpresaVincularServer: idEmpresaVincular
+        idProfessorServer: listaProfessoresCadastrados
       }),
     })
       .then(function (resposta) {
@@ -146,41 +149,17 @@
             window.location = "login.html";
           }, "2000");
 
-          limparFormulario();
-          finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
       });
 
     return false;
   }
 
-  // Listando empresas cadastradas 
-  // function listar() {
-  //   fetch("/empresas/listar", {
-  //     method: "GET",
-  //   })
-  //     .then(function (resposta) {
-  //       resposta.json().then((empresas) => {
-  //         empresas.forEach((empresa) => {
-  //           listaEmpresasCadastradas.push(empresa);
+  sessionStorage.ID_PROFESSOR = listaProfessoresCadastrados;
 
-  //           console.log("listaEmpresasCadastradas")
-  //           console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-  //         });
-  //       });
-  //     })
-  //     .catch(function (resposta) {
-  //       console.log(`#ERRO: ${resposta}`);
-  //     });
-  // }
-
-  // function sumirMensagem() {
-  //   cardErro.style.display = "none";
-  // }
 </script>
