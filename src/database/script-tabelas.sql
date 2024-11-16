@@ -9,7 +9,6 @@ comandos para mysql server
 CREATE DATABASE doremi;
 USE doremi;
 
-
 CREATE TABLE Professor (
     idProfessor INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45),
@@ -29,81 +28,47 @@ CREATE TABLE Aluno (
     FOREIGN KEY (fkProfessor) REFERENCES Professor(idProfessor)
 );
 
-CREATE TABLE Dashboard (
-    idDashboard INT PRIMARY KEY AUTO_INCREMENT,
-    pontuacaoTotal INT,
-    nivel INT,
-    fkAluno INT,
-    CONSTRAINT dashAluno FOREIGN KEY (fkAluno)
-        REFERENCES Aluno(idAluno)
+CREATE TABLE Avaliacoes(
+idAvaliacoes INT PRIMARY KEY AUTO_INCREMENT,
+voto CHAR(3),
+descricao VARCHAR(80),
+fkAluno int,
+FOREIGN KEY (fkAluno) REFERENCES Aluno(idAluno)
 );
 
-CREATE TABLE Jogos (
-    idJogos INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(45),
-    descricao VARCHAR(60)
+CREATE TABLE Quiz(
+	idQuiz INT PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(45)
 );
 
-CREATE TABLE Pontuacao (
-    idPontuacao INT PRIMARY KEY AUTO_INCREMENT,
-    qtdPontuacao INT,
-    dtHora DATETIME, 
-    fkJogos INT,
-    CONSTRAINT pontuacaoJogos FOREIGN KEY (fkJogos)
-        REFERENCES Jogos(idJogos),
-    fkAluno INT,
-    CONSTRAINT pontuacaoAluno FOREIGN KEY (fkAluno)
-        REFERENCES Aluno(idAluno)
+CREATE TABLE Tentativa(
+	idTentativa INT PRIMARY KEY AUTO_INCREMENT,
+	respostas_certas INT,
+	respotas_erradas INT,
+	fkAluno INT,
+	FOREIGN KEY (fkAluno) REFERENCES Aluno(idAluno),
+	fkQuiz INT,
+	FOREIGN KEY (fkQuiz) REFERENCES Quiz(idQuiz)
 );
 
-CREATE TABLE ContagemNota (
-    idContagemNota INT PRIMARY KEY AUTO_INCREMENT,
-    nomeNota VARCHAR(45),
-    valor INT,
-    respostaCorreta VARCHAR(45),
-    fkJogos INT,
-    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
-        REFERENCES Jogos(idJogos)
+CREATE TABLE QuizPergunta (
+	idPergunta INT PRIMARY KEY AUTO_INCREMENT,
+	descricao VARCHAR(45),
+	resposta1 VARCHAR(45),
+	resposta2 VARCHAR(45),
+	resposta3 VARCHAR(45),
+	resposta4 VARCHAR(45),
+	resposta5 VARCHAR(45),
+	resposta6 VARCHAR(45),
+	fkQuiz INT,
+	FOREIGN KEY (fkQuiz) REFERENCES Quiz(idQuiz)
 );
 
-CREATE TABLE JogoMemoria (
-    idJogoMemoria INT PRIMARY KEY AUTO_INCREMENT,
-    carta1 INT,
-    carta2 INT,
-    parValido INT,
-    fkJogos INT,
-    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
-        REFERENCES Jogos(idJogos)
-);
+INSERT INTO Aluno (nome, idade, email, senha, nomeResponsavel, telefoneResponsavel, fkProfessor)
+VALUES ('Maria Oliveira', 15, 'maria.oliveira@example.com', 'senha456', 'Carlos Oliveira', '11987654321', 1);
 
-CREATE TABLE IdentificacaoSons (
-    idIdentificacaoSons INT PRIMARY KEY AUTO_INCREMENT,
-    som INT,
-    instrumentoAssociado INT,
-    respostaCorreta VARCHAR(45),
-    fkJogos INT,
-    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
-        REFERENCES Jogos(idJogos)
-);
-
-CREATE TABLE QuizPerguntas (
-    idQuizPerguntas INT PRIMARY KEY AUTO_INCREMENT,
-    perguntas VARCHAR(80),
-    fkJogos INT,
-    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
-        REFERENCES Jogos(idJogos)
-);
-
-CREATE TABLE QuizRespostas (
-    idQuizRespostas INT PRIMARY KEY AUTO_INCREMENT,
-    respostas VARCHAR(80),
-    fkJogos INT,
-    CONSTRAINT contagemJogos FOREIGN KEY (fkJogos)
-        REFERENCES Jogos(idJogos),
-    fkPergunta INT,
-    CONSTRAINT respostaPergunta FOREIGN KEY (fkPergunta)
-        REFERENCES QuizPerguntas(idQuizPerguntas)
-);
+INSERT INTO Professor (nome, email, senha) 
+VALUES ('João da Silva', 'joao.silva@example.com', 'senha123');
 
 INSERT INTO Aluno (nome, idade, email, nomeResponsavel, telefoneResponsavel, fkProfessor) VALUES
     ('Ana', 8, 'ana@example.com', 'Raquel', '11963678765', 1),
@@ -124,3 +89,4 @@ FROM
 JOIN 
     Aluno ON Professor.idProfessor = Aluno.fkProfessor;
     
+
