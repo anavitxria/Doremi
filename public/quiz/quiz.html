@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body onload="onloadEsconder()">
     <div id="pontuacaoEJogo">
         <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
@@ -271,19 +270,83 @@
             classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
-        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
 
 
         document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
-        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
 
-        document.getElementById('jogo').classList.add("text-new-gray") 
+        document.getElementById('jogo').classList.add("text-new-gray")
 
         btnProx.disabled = true
         btnSubmeter.disabled = true
         // btnConcluir.disabled = true
         btnTentarNovamente.disabled = false
 
+        cadastrarPontuacao();
     }
+
+    //CHAMADA API
+    function cadastrarPontuacao() {
+
+        var pontuacaoFinalVar = document.getElementById('spanPontuacaoFinal').innerText;
+        var quantidadeCertasVar = document.getElementById('spanCertas').innerText;
+        var quantidadeErradasVar = document.getElementById('spanErradas').innerText;
+        var idAlunoStorage = sessionStorage.getItem('ID_USUARIO');
+
+        quantidadeErradasVar = quantidadeErradasVar || 0;
+        quantidadeCertasVar = quantidadeCertasVar || 0;
+        pontuacaoFinalVar = pontuacaoFinalVar || 0;
+
+        console.log("Pontuação: ", pontuacaoFinalVar);
+        console.log("Quantidade Certas: ", quantidadeCertasVar);
+        console.log("Quantidade Erradas: ", quantidadeErradasVar);
+
+        fetch("/quiz/salvarResultado", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idAlunoServer: idAlunoStorage,
+                pontuacaoFinalServer: pontuacaoFinalVar,
+                quantidadeCertasServer: quantidadeCertasVar,
+                quantidadeErradasServer: quantidadeErradasVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.ID_ALUNO = json.idAluno;
+
+                    setTimeout(function () {
+                        window.location = "./index.html";
+                    }, 3000);
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+
 </script>
