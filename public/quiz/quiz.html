@@ -62,7 +62,6 @@
             <div id="botoes" class="flex-colunar padding-8">
                 <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
                 <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
             </div>
 
@@ -75,30 +74,57 @@
     const listaDeQuestoes = [
 
         {
-            pergunta: "Qual mês tem 30 dias?",
-            alternativaA: "Janeiro",
-            alternativaB: "Dezembro",
-            alternativaC: "Junho",
-            alternativaD: "Agosto",
+            pergunta: " Qual destes é um instrumento de percussão?",
+            alternativaA: "Violão",
+            alternativaB: "Tambor",
+            alternativaC: "Flauta",
+            alternativaD: "Piano",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Quantas cordas tem um violão tradicional?",
+            alternativaA: "4",
+            alternativaB: "5",
+            alternativaC: "6",
+            alternativaD: "7",
             alternativaCorreta: "alternativaC"
         },
 
         {
-            pergunta: "Quantas horas tem em um dia?",
-            alternativaA: "30 horas",
-            alternativaB: "38 horas",
-            alternativaC: "48 horas",
-            alternativaD: "24 horas",
-            alternativaCorreta: "alternativaD"
+            pergunta: "Se uma música é tocada bem rápido, como ela pode soar?",
+            alternativaA: "Triste",
+            alternativaB: "Alegre",
+            alternativaC: "Devagar",
+            alternativaD: "Confusa",
+            alternativaCorreta: "alternativaB"
         },
 
         {
-            pergunta: "Qual destes números é ímpar?",
-            alternativaA: "Dez",
-            alternativaB: "Doze",
-            alternativaC: "Oito",
-            alternativaD: "Onze",
-            alternativaCorreta: "alternativaD"
+            pergunta: "Qual desses instrumentos tem o som mais grave?",
+            alternativaA: "Violino",
+            alternativaB: "Contrabaixo",
+            alternativaC: "Guitarra",
+            alternativaD: "Flauta",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Como chamamos o conjunto de 5 linhas usado para escrever música?",
+            alternativaA: "Pauta",
+            alternativaB: "Pentagrama",
+            alternativaC: "Clave",
+            alternativaD: "Compassos",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Como chamamos a pessoa que rege uma orquestra?",
+            alternativaA: "Músico",
+            alternativaB: "Cantor",
+            alternativaC: "Maestro",
+            alternativaD: "Baterista",
+            alternativaCorreta: "alternativaC"
         }
 
     ]
@@ -281,7 +307,6 @@
 
         btnProx.disabled = true
         btnSubmeter.disabled = true
-        // btnConcluir.disabled = true
         btnTentarNovamente.disabled = false
 
         cadastrarPontuacao();
@@ -293,7 +318,7 @@
         var pontuacaoFinalVar = document.getElementById('spanPontuacaoFinal').innerText;
         var quantidadeCertasVar = document.getElementById('spanCertas').innerText;
         var quantidadeErradasVar = document.getElementById('spanErradas').innerText;
-        var idAlunoStorage = sessionStorage.getItem('ID_USUARIO');
+        var idAlunoStorage = sessionStorage.getItem('ID_ALUNO');
 
         quantidadeErradasVar = quantidadeErradasVar || 0;
         quantidadeCertasVar = quantidadeCertasVar || 0;
@@ -324,11 +349,9 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-                    sessionStorage.ID_ALUNO = json.idAluno;
-
                     setTimeout(function () {
-                        window.location = "./index.html";
-                    }, 3000);
+                        window.location = "../dashboard/dashDoremi.html";
+                    }, 1000);
 
                 });
 
