@@ -9,15 +9,13 @@
 
 .container {
     width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: space-between;
 }
 
 .containerRigth {
     width: 50%;
-    height: 100vh;
-    background-image: url("../assets/aquarela.jpg");
+    background-image: url("../assets/papelFundoProf.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -27,11 +25,11 @@
 
 .containerLeft {
     width: 50%;
-    height: 100vh;
-    background-color: #13B5FD;
+    background-color: #92DAF0   ;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 50px;
 }
 
 .fields {
@@ -54,7 +52,7 @@
 
 .contentForm p {
     margin-bottom: 2rem;
-    color: #b6e7ff;
+    color: #EFF5B7;
     font-size: 20px;
     font-weight: 500;
 }
@@ -86,11 +84,11 @@
     border-radius: 50px;
     outline: none;
     color: #ffffff;
-    background-color: #FCC02C;
+    background-color: #F1949B;
     font-weight: 800;
     font-size: 16px;
     margin-top: 2rem;
-    border: 4px solid #FBE6A2;
+    border: 4px solid #F36C81;
 }
 
 .fields .link {

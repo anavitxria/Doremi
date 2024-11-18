@@ -9,15 +9,13 @@
 
 .container {
     width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: space-between;
 }
 
 .containerRigth {
     width: 50%;
-    height: 100vh;
-    background-image: url("../assets/WhatsApp\ Image\ 2024-11-05\ at\ 23.30.01.jpeg");
+    background-image: url("../assets/WhatsApp\ Image\ 2024-11-17\ at\ 23.54.26.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -27,11 +25,11 @@
 
 .containerLeft {
     width: 50%;
-    height: 100vh;
-    background-color: #CFDBE7 ;
+    background-color: #13B5FD;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 50px;
 }
 
 .fields {
@@ -46,26 +44,66 @@
     flex-direction: column;
 }
 
+.contentForm h1{
+    font-size: 40px;
+    color: #eff9ff;
+    letter-spacing: -1px;
+}
+
 .contentForm p {
     margin-bottom: 2rem;
+    color: #b6e7ff;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.fields label {
+    color: #eff9ff;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .fields input {
-    border-radius: 5px;
-    border: 2px solid rgb(156, 156, 156);
-    background-color:#CFDBE7;
+    background-color:#ffffff;
+    border-radius: 50px;
+    border: none;
     outline: none;
-    padding: 4px;
+    padding: 10px 20px;
+    font-size: 15px;
+    color: #13B5FD;
+    border: 4px solid #0ba4e6;
+}
+
+.fields input::placeholder{
+    color: #13B5FD;
 }
 
 .fields button {
-    height: 40px;
+    height: 55px;
     border: none;
+    border-radius: 50px;
     outline: none;
-    color: white;
-    background-color: #e69a49  ;
+    color: #ffffff;
+    background-color: #FCC02C;
     font-weight: 800;
-    font-size: 15px;
-    border-radius: 5px;
+    font-size: 16px;
     margin-top: 2rem;
+    border: 4px solid #FBE6A2;
+}
+
+.fields .link {
+    margin-top: 1rem;
+    color: #eff9ff;
+    font-size: 15px;
+    z-index: 2;
+}
+
+.fields .link a {
+    color: #004b6b;
+    font-weight: 900;
+}
+
+.containerLeft svg {
+    position: absolute;
+    bottom: 0;
 }
