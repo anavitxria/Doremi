@@ -15,7 +15,7 @@
     <aside class="sidebar">
         <div class="sidebar-header">
             <img src="imgs/logo_1-removebg-preview 1.svg" alt="logo">
-            
+
         </div>
         <ul class="sidebar-links">
             <h4>
@@ -63,7 +63,7 @@
                 <img src="assets/imgs/pessoa1.png" alt="usuario" />
                 <div class="user-details">
                     <h3>Usúario</h3>
-                    <span>Produtor</span>
+                    <span>dD</span>
                 </div>
             </div>
         </div>
@@ -76,20 +76,75 @@
     </section>
 
     <section class="containerKpi">
-            <div class="kpi1"><h1></h1></div>
-            <div class="kpi2"><h1></h1></div>
-            <div class="kpi3"><h1></h1></div>
-            <div class="kpi4"><h1></h1></div>
-    </section>
-
-    <section class="graphics">
-        <div class="temp" id="temperatura">
-            <canvas id="sensorTemperatura"></canvas>
+        <div class="kpi1">
+            <h1></h1>
         </div>
-        <div class="umi" id="umidade">
-            <canvas id="sensorUmidade"></canvas>
-        </div> 
+        <div class="kpi2">
+            <h1></h1>
+        </div>
+        <div class="kpi3">
+            <h1></h1>
+        </div>
+        <div class="kpi4">
+            <h1></h1>
+        </div>
     </section>
-
 </body>
+
 </html>
+<script>
+    var idProfessor = sessionStorage.getItem("ID_PROFESSOR");
+
+    window.onload = function () {
+        var idProfessor = sessionStorage.getItem('ID_PROFESSOR');
+        if (idProfessor) {
+            obterDadosAluno(idProfessor);
+        } else {
+            console.error("ID_PROFESSOR não está definido no sessionStorage.");
+        }
+    };
+
+    function obterDadosAluno(idProfessor) {
+        fetch(`/usuarios/obterDadosAluno/${idProfessor}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    exibirDadosNoHtml(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function exibirDadosNoHtml(dados) {
+        console.log(dados);
+
+        var kpiDivs = document.querySelectorAll(".kpi1, .kpi2, .kpi3, .kpi4");
+
+        kpiDivs.forEach(function (div) {
+            div.innerHTML = '';
+        });
+
+        if (dados.length > 0) {
+            for (let i = 0; i < dados.length; i++) {
+                const aluno = dados[i];
+                if (i < kpiDivs.length) {
+                    const divKpi = kpiDivs[i];
+                    divKpi.innerHTML = `
+                    <strong>ID:</strong> ${aluno.idAluno} <br>
+                    <strong>Nome:</strong> ${aluno.Nome} <br>
+                    <strong>Pontuação Total:</strong> ${aluno.PontuacaoTotal}
+                `;
+                }
+            }
+        } else {
+            kpiDivs.forEach(function (div) {
+                div.innerHTML = 'Nenhum dado encontrado.';
+            });
+        }
+    }
+</script>

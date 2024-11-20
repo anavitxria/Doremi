@@ -20,4 +20,12 @@ router.post("/cadastrar_professor", function (req, res) {
     usuarioController.cadastrar_professor(req, res);
 });
 
+router.post("/autenticarProfessor", function (req, res) {
+    usuarioController.autenticarProfessor(req, res);
+});
+
+router.get("/obterDadosAluno/:idProfessor", function (req, res) {
+    usuarioController.obterDadosAluno(req, res);
+});
+
 module.exports = router;

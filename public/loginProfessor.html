@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dorémi | Login</title>
+    <title>Dorémi | Login Professor</title>
 
     <script src="./js/sessao.js"></script>    
     <link rel="stylesheet" href="./css/login.css">
@@ -19,7 +19,7 @@
 
         <div class="containerLeft">
             <div class="contentForm">
-                <h1>Login</h1>
+                <h1>Login Professor</h1>
                 <p>Bem vindo a Dorémi!</p>
                 <div class="fields">
                     <label for="email_input">E-mail:</label>
@@ -54,7 +54,7 @@
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/usuarios/autenticar", {
+        fetch("/usuarios/autenticarProfessor", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -73,14 +73,13 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.SENHA_USUARIO = json.senha;
-                    sessionStorage.ID_ALUNO = json.idAluno;
-                    sessionStorage.ID_PROFESSOR = json.fkProfessor;
-
+                    sessionStorage.EMAIL_PROFESSOR = json.email;
+                    sessionStorage.NOME_PROFESSOR = json.nome;
+                    sessionStorage.SENHA_PROFESSOR = json.senha;
+                    sessionStorage.ID_PROFESSOR = json.idProfessor;
+                    
                     setTimeout(function () {
-                        window.location = "./quiz/quiz.html";
+                        window.location = "./dashboard/hist.html";
                     }, 1000);
 
                 });
