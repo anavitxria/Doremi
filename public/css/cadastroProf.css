@@ -15,7 +15,7 @@
 
 .containerRigth {
     width: 50%;
-    background-image: url("../assets/papelFundoProf.jpg");
+    background-image: url("../assets/Free-Vector-_-Music-border-background_-retro-instrument-in-pastel-orange-vector.png");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -25,7 +25,7 @@
 
 .containerLeft {
     width: 50%;
-    background-color: #92DAF0   ;
+    background-color: #f5e1c6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +46,7 @@
 
 .contentForm h1{
     font-size: 40px;
-    color: #eff9ff;
+    color: #fff6eb;
     letter-spacing: -1px;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .fields label {
-    color: #eff9ff;
+    color: #ffffff;
     font-size: 18px;
     font-weight: 500;
 }
@@ -71,11 +71,11 @@
     padding: 10px 20px;
     font-size: 15px;
     color: #13B5FD;
-    border: 4px solid #0ba4e6;
+    border: 4px solid #d4bc9d;
 }
 
 .fields input::placeholder{
-    color: #13B5FD;
+    color: #DEA057;
 }
 
 .fields button {
@@ -84,11 +84,11 @@
     border-radius: 50px;
     outline: none;
     color: #ffffff;
-    background-color: #F1949B;
+    background-color: #DEA057;
     font-weight: 800;
     font-size: 16px;
     margin-top: 2rem;
-    border: 4px solid #F36C81;
+    border: 4px solid #b17a3c;
 }
 
 .fields .link {
@@ -99,7 +99,7 @@
 }
 
 .fields .link a {
-    color: #004b6b;
+    color: #DEA057;
     font-weight: 900;
 }
 
