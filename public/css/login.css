@@ -1,5 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+
+body::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  body::-webkit-scrollbar-track {
+    background-color: #ffffff;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #DC7248;
+    border-radius: 20px;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: black;
+  }
 * {
     margin: 0;
     padding: 0;
