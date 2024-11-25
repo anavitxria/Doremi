@@ -178,7 +178,7 @@ body {
 /* FOOTER */
 
 .footer {
-  background-color: #c99351;
+  background-color: #C6DABF;
   height: 150px;
   color: #fff;
   display: flex;
@@ -264,9 +264,17 @@ body {
 }
 
 
-.carrossel {
-  filter: drop-shadow(0px 0px 10px #000);
-  width: 1250px;
-  height: 570px;
+.videos {
+  height: 90vh;
+  background-color: #EFD7BD;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
  
+}
+
+.container video{
+  background-color: #C6DABF;
+  
 }
