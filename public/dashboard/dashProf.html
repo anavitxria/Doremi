@@ -14,7 +14,7 @@
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="imgs/logo_1-removebg-preview 1.svg" alt="logo">
+            <img src="../assets/DoremiLogo.svg" alt="logo">
 
         </div>
         <ul class="sidebar-links">
@@ -25,7 +25,7 @@
 
 
             <li>
-                <a href="./index.html"><span class="material-symbols-outlined">
+                <a href="../index.html"><span class="material-symbols-outlined">
                         home
                     </span>Home</a>
             </li>
@@ -34,10 +34,10 @@
 
         <div class="user-account">
             <div class="user-profile">
-                <img src="assets/imgs/pessoa1.png" alt="usuario" />
+                <img src="../assets/professor.png" alt="usuario" />
                 <div class="user-details">
                     <h3>Usúario</h3>
-                    <span>Professor</span>
+                    <span id="nomeProfessor"></span>
                 </div>
             </div>
         </div>
@@ -68,6 +68,9 @@
 </html>
 <script>
     var idProfessor = sessionStorage.getItem("ID_PROFESSOR");
+    var nomeDoProfessor = sessionStorage.getItem("NOME_PROFESSOR");
+
+    nomeProfessor.innerHTML = nomeDoProfessor
 
     window.onload = function () {
         var idProfessor = sessionStorage.getItem('ID_PROFESSOR');

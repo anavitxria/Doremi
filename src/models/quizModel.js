@@ -12,10 +12,10 @@ function cadastrarPontuacao(pontuacaoFinal, acertos, erros, idAluno) {
 
 function buscarUltimasMedidas(fkAluno) {
 
-    var instrucaoSql = `SELECT SUM(pontuacaoFinal) 
-                                AS somaPontuacao 
-                                FROM Resultado 
-                                WHERE fkAluno = ${fkAluno};`;
+    var instrucaoSql = `SELECT SUM(pontuacaoFinal) AS somaPontuacao,
+                               SUM(qtdErros) AS somaErros
+                               FROM Resultado 
+                               WHERE fkAluno = ${fkAluno};`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -24,10 +24,10 @@ function buscarUltimasMedidas(fkAluno) {
 
 function buscarMedidasEmTempoReal(fkAluno) {
 
-    var instrucaoSql = `SELECT SUM(pontuacaoFinal) 
-                                AS somaPontuacao 
-                                FROM Resultado 
-                                WHERE fkAluno = ${fkAluno};`;
+    var instrucaoSql = `SELECT SUM(pontuacaoFinal) AS somaPontuacao,
+                               SUM(qtdErros) AS somaErros
+                               FROM Resultado 
+                               WHERE fkAluno = ${fkAluno};`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

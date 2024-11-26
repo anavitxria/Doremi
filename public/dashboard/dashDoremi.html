@@ -14,7 +14,7 @@
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="imgs/logo_1-removebg-preview 1.svg" alt="logo">
+            <img src="../assets/DoremiLogo.svg" alt="logo">
 
         </div>
         <ul class="sidebar-links">
@@ -34,7 +34,7 @@
             <div class="menu_separator"></div>
 
             <li>
-                <a href="./index.html"><span class="material-symbols-outlined">
+                <a href="../index.html"><span class="material-symbols-outlined">
                         home
                     </span>Home</a>
             </li>
@@ -43,10 +43,10 @@
 
         <div class="user-account">
             <div class="user-profile">
-                <img src="assets/imgs/pessoa1.png" alt="usuario" />
+                <img src="../assets/garoto.png" alt="usuario" />
                 <div class="user-details">
                     <h3>Usúario</h3>
-                    <span>Aluno</span>
+                    <span id="nomeAluno"></span>
                 </div>
             </div>
         </div>
@@ -85,8 +85,13 @@
 
 <script>
     var fkAluno = sessionStorage.getItem('ID_ALUNO');
+    var nomeDoAluno = sessionStorage.getItem('NOME_USUARIO');
+
+    nomeAluno.innerHTML = nomeDoAluno;
+
     let proximaAtualizacao;
     let myChart;
+    
 
     window.onload = function () {
         var fkAluno = sessionStorage.getItem('ID_ALUNO'); // Recupera o valor do sessionStorage
@@ -127,19 +132,29 @@
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labels = [];
+        let labels = []; //Array que armazena a somaPontuacao
+        let somaErros = []; // Array que armazena a somaErros
 
         // Criando estrutura para plotar gráfico - dados
         let dados = {
             labels: labels,
-            datasets: [{
+            datasets: [
+                {
                 label: 'Pontuações',
                 data: [],
                 fill: false,
                 backgroundColor: '#5FA89D',
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
-            },
+                },
+                {
+                label: 'Quantidade de Erros',
+                data: somaErros,
+                fill: false,
+                backgroundColor: '#81dacc',
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+                }
             ]
         };
 
@@ -151,8 +166,10 @@
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.somaPontuacao);
-            //Substitui para (somaPontuacao)
             dados.datasets[0].data.push(registro.somaPontuacao);
+
+            somaErros.push(registro.somaErros);
+            dados.datasets[1].data.push(registro.somaErros);
         }
 
         console.log('----------------------------------------------')
