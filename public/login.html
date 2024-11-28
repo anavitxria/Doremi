@@ -8,11 +8,13 @@
 
     <title>Dorémi | Login</title>
 
-    <script src="./js/sessao.js"></script>    
+    <script src="./js/sessao.js"></script>
     <link rel="stylesheet" href="./css/login.css">
     <link rel="icon" href="./assets/icon/favicon2.ico">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+
 <body>
     <section class="container">
         <div class="containerRigth"></div>
@@ -20,7 +22,7 @@
         <div class="containerLeft">
             <div class="contentForm">
                 <h1>Login</h1>
-                
+
                 <div class="fields">
                     <label for="email_input">E-mail:</label>
                     <input type="text" id="email_input" placeholder="Digite seu email...">
@@ -30,11 +32,12 @@
                     <p class="link">Já tem cadastro ? <a href="cadastro.html">Cadastre-se</a></p>
                 </div>
             </div>
-           
+
         </div>
     </section>
-    
+
 </body>
+
 </html>
 
 <script>
@@ -45,10 +48,14 @@
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            alert("Mensagem de erro para todos os campos em branco");
+            Swal.fire({
+                        title: "Campos vazios!",
+                        text: "Preenche todos os campos",
+                        icon: "error"
+                    });
             return false;
         }
-        
+
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
@@ -66,10 +73,16 @@
 
             if (resposta.ok) {
                 console.log(resposta);
-                
+
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+
+                    Swal.fire({
+                        title: "Login realizado!",
+                        text: "Bem vindo a Dorémi!",
+                        icon: "success"
+                    });
 
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
@@ -79,14 +92,17 @@
 
                     setTimeout(function () {
                         window.location = "./quiz/quiz.html";
-                    }, 1000);
+                    }, 2000);
 
                 });
 
             } else {
-
+                Swal.fire({
+                        title: "Erro ao fazer login!",
+                        text: "Verifique seus campos de entrada",
+                        icon: "error"
+                    });
                 console.log("Houve um erro ao tentar realizar o login!");
-
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
