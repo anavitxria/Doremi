@@ -66,6 +66,11 @@ body::-webkit-scrollbar {
     flex-direction: column;
 }
 
+.contentForm img {
+    width: 92px;
+}
+
+
 .contentForm h1{
     font-size: 40px;
     color: #eff9ff;

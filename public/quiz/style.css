@@ -2,7 +2,8 @@
 /* The 4-point grid system: https://medium.com/@sainzkike/controlling-spacing-in-design-systems-multiple-spacing-9bf1afec87f */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -33,7 +34,16 @@ body {
     background-size: cover;
 }
 
-#pontuacaoEJogo{
+.contentForm {
+ width: 92px;
+ padding: 10px;
+}
+
+.contentForm img {
+    width: 110px;
+}
+
+#pontuacaoEJogo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,7 +59,7 @@ button {
     font-weight: bold;
 }
 
-#btnIniciarQuiz{
+#btnIniciarQuiz {
     background-color: #E0914A;
     border: none;
     border-radius: 50px;
@@ -66,27 +76,27 @@ button {
     flex-direction: column;
 }
 
-#btnSubmeter{
+#btnSubmeter {
     padding: 10px 20px;
-    background-color:#E7A667;
+    background-color: #E7A667;
     color: white;
-    border: 3px solid #b8641a ;
+    border: 3px solid #b8641a;
     border-radius: 50px;
     margin-bottom: 5px;
 }
 
-#btnProx{
+#btnProx {
     padding: 10px 20px;
-    background-color:#448d37;
+    background-color: #448d37;
     color: white;
-    border: 3px solid #326928 ;
+    border: 3px solid #326928;
     border-radius: 50px;
     margin-bottom: 5px;
 }
 
-#btnTentarNovamente{
+#btnTentarNovamente {
     padding: 10px 20px;
-    background-color:#dc521b;
+    background-color: #dc521b;
     color: white;
     border: 3px solid #973711;
     border-radius: 50px;
@@ -134,13 +144,13 @@ button {
     color: var(--new-gray);
 }
 
-#infoQuestao span{
+#infoQuestao span {
     color: white;
     font-size: 30px;
     font-weight: 800;
 }
 
-#perguntaDaQuestaoAtual span{
+#perguntaDaQuestaoAtual span {
     color: #dc521b;
     font-size: 20px;
     font-weight: 800;
@@ -149,10 +159,10 @@ button {
 #infoAlternativas span {
     color: #E7A667;
     font-size: 15px;
-    font-weight: 800;   
+    font-weight: 800;
 }
 
-#opcoes span{
+#opcoes span {
     color: #6B907A;
     font-size: 15px;
     font-weight: 800;
