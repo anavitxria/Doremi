@@ -11,7 +11,7 @@
   <script src="./js/sessao.js"></script>
 
   <link rel="stylesheet" href="./css/cadastro.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="icon" href="./assets/DoremiLogo.svg">
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
@@ -22,7 +22,7 @@
     <div class="containerLeft">
       <div class="contentForm">
         <h1>Cadastro de Aluno</h1>
-        
+
         <div class="fields">
           <label for="nome_input">Nome:</label>
           <input type="text" id="nome_input" placeholder="Digite seu nome...">
@@ -50,27 +50,27 @@
   // Array para armazenar empresas cadastradas para validação de código de ativação 
   let listaProfessoresCadastrados = 0;
   window.onload = listarUltimoProfessor();
-  
-  function listarUltimoProfessor(){
-        fetch(`/usuarios/listarUltimoProfessor`)
-        .then(resposta => {
-            if (resposta.ok) {
-                resposta.json().then(resposta => {
 
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+  function listarUltimoProfessor() {
+    fetch(`/usuarios/listarUltimoProfessor`)
+      .then(resposta => {
+        if (resposta.ok) {
+          resposta.json().then(resposta => {
 
-                    listaProfessoresCadastrados = resposta[0].idProfessor;
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                });
-            } else {
+            listaProfessoresCadastrados = resposta[0].idProfessor;
 
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados do freezer p/ gráfico: ${error.message}`);
-        });
-    }
+          });
+        } else {
+
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados do freezer p/ gráfico: ${error.message}`);
+      });
+  }
 
   function cadastrar() {
 
@@ -80,7 +80,7 @@
     var senhaVar = senha_input.value;
     var responsavelVar = nomeResponsavel_input.value;
     var telefoneRespVar = telefoneResponsavel_input.value;
-   
+
     if (
       nomeVar == "" ||
       idadeVar == "" ||
@@ -89,35 +89,39 @@
       responsavelVar == "" ||
       telefoneRespVar == ""
     ) {
-      alert("Preencha todos os campos")
+      Swal.fire({
+        title: "Preencha todos os campos!",
+        text: "Verifique a entrada de campos!",
+        icon: "error"
+      });
 
       if (nomeVar.length <= 1) {
-        alert("Nome deve ter mais que um caractere")
+        Swal.fire("Nome deve ter mais que um caractere");
         return false
       }
-      
+
       if (idadeVar <= 4) {
-        alert("Você deve ter mais que 4 anos")
+        Swal.fire("Você deve ter mais que 4 anos");
         return false
       }
 
       if (emailVar.indexOf('@') == false && emailVar.indexOf('@') == false) {
-        alert("Insira um email valido")
+        Swal.fire("Insira um email valido");
         return false
       }
 
-      if (senhaVar < 6) {
-        alert("Insira uma senha válida")
+      if (senhaVar.length < 6) {
+        Swal.fire("Insira uma senha válida");
         return false
       }
 
       if (responsavelVar.length <= 1) {
-        alert("Nome deve ter mais que um caractere")
+        Swal.fire("Nome deve ter mais que um caractere");
         return false
       }
 
       if (telefoneRespVar < 11) {
-        alert("Numero deve ter onze caracteres")
+        Swal.fire("Número deve ter onze caracteres");
         return false
       }
 
@@ -135,7 +139,7 @@
         emailServer: emailVar,
         senhaServer: senhaVar,
         responsavelServer: responsavelVar,
-        telefoneRespServer: telefoneRespVar, 
+        telefoneRespServer: telefoneRespVar,
         idProfessorServer: listaProfessoresCadastrados
       }),
     })
@@ -143,13 +147,22 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          alert("Cadastrado com sucesso")
+          Swal.fire({
+            title: "Cadastrado com sucesso!",
+            text: "Faça o login!",
+            icon: "success"
+          });
 
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
 
         } else {
+          Swal.fire({
+            title: "Houve um erro ao tentar realizar o cadastro!",
+            text: "Verifique os campos de entrada.",
+            icon: "success"
+          });
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
