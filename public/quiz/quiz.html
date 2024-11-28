@@ -7,6 +7,7 @@
     <title>Quiz | Dorémi</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="../assets/DoremiLogo.svg">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body onload="onloadEsconder()">
@@ -183,7 +184,7 @@
         }
 
         if (!hasChecked) {
-            alert("Não há alternativas escolhidas. Escolha uma opção.")
+            Swal.fire("Não há alternativas escolhidas. Escolha uma opção.");
         } else {
             btnSubmeter.disabled = true
             btnProx.disabled = false
@@ -213,7 +214,11 @@
         if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
-            alert("Atenção... a próxima é a ultima questão!")
+            Swal.fire({
+                title: "Atenção... a próxima é a ultima questão!",
+                text: "Verifique antes de enviar!",
+                icon: "warning"
+            });
             preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
         } else {
             finalizarJogo()

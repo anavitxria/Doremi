@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./css/cadastroProf.css" />
     <link rel="icon" href="./assets/DoremiLogo.svg">
     <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -52,20 +53,24 @@
             emailVar == "" ||
             senhaVar == ""
         ) {
-            alert("Preencha todos os campos")
+            Swal.fire({
+                title: "Preencha todos os campos!",
+                text: "Verifique a entrada de campos!",
+                icon: "error"
+            });
 
             if (nomeVar.length <= 1) {
-                alert("Nome deve ter mais que um caractere")
+                Swal.fire("Nome deve ter mais que um caractere");
                 return false
             }
 
             if (emailVar.indexOf('@') == false && emailVar.indexOf('@') == false) {
-                alert("Insira um email valido")
+                Swal.fire("Insira um email valido");
                 return false
             }
 
             if (senhaVar < 6) {
-                alert("Insira uma senha válida")
+                Swal.fire("Insira uma senha válida");
                 return false
             }
 
@@ -87,11 +92,15 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    alert("Cadastrado com sucesso")
+                    Swal.fire({
+                        title: "Cadastrado com sucesso!",
+                        text: "Faça o login!",
+                        icon: "success"
+                    });
 
                     setTimeout(() => {
-                        window.location = "login.html";
-                    }, "1000");
+                        window.location = "loginProfessor.html";
+                    }, "1500");
 
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";

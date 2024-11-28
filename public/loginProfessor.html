@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./css/loginProf.css">
     <link rel="icon" href="./assets/DoremiLogo.svg">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <section class="container">
@@ -45,7 +46,11 @@
         var senhaVar = senha_input.value;
 
         if (emailVar == "" || senhaVar == "") {
-            alert("Mensagem de erro para todos os campos em branco");
+            Swal.fire({
+                        title: "Campos vazios!",
+                        text: "Preenche todos os campos",
+                        icon: "error"
+                    });
             return false;
         }
         
@@ -70,6 +75,12 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+
+                    Swal.fire({
+                        title: "Login realizado!",
+                        text: "Bem vindo a Dorémi!",
+                        icon: "success"
+                    });
 
                     sessionStorage.EMAIL_PROFESSOR = json.email;
                     sessionStorage.NOME_PROFESSOR = json.nome;
