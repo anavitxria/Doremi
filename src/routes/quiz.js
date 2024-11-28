@@ -16,4 +16,8 @@ router.get("/tempo-real/:fkAluno", function (req, res) {
     quizController.buscarMedidasEmTempoReal(req, res);
 })
 
+router.get("/estatisticas/:fkAluno", function (req, res) {
+    quizController.buscarEstatisticas(req, res);
+})
+
 module.exports = router;

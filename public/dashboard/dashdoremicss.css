@@ -186,7 +186,12 @@ body {
 .kpi2,
 .kpi3,
 .kpi4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color:#EFD7BD;
+    color: white;
+    padding: 20px;
     border-radius: 5px;
     width: 250px;
     height: 115px;
@@ -194,6 +199,34 @@ body {
     -moz-box-shadow: 0px 0px 87px -37px rgba(0,0,0,0.59);
     box-shadow: 0px 0px 87px -37px rgba(0,0,0,0.59);
 }
+
+.containerKpi .kpi1 img,
+.kpi2 img,
+.kpi3 img,
+.kpi4 img {
+    width: 30px;
+    height: 30px;
+}
+
+.containerKpi .kpi1 h1,
+.kpi2 h1,
+.kpi3 h1,
+.kpi4 h1 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -1px;
+}
+
+.numero-acertos {
+    color: #29A24C;
+    font-weight: bold;
+}
+
+.numero-erros {
+    color: #C56A47;
+    font-weight: bold;
+}
+
 
 .graphics{
     position: relative;

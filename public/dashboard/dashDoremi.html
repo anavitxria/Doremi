@@ -60,16 +60,21 @@
 
     <section class="containerKpi">
         <div class="kpi1">
-            <h1></h1>
+            <img src="../assets/correto.png" alt="">
+            <h1 id="totalAcertos"></h1>
+
         </div>
         <div class="kpi2">
-            <h1></h1>
+            <img src="../assets/errado.png  " alt="">
+            <h1 id="totalErros"></h1>
         </div>
         <div class="kpi3">
-            <h1></h1>
+            <img src="../assets/ferramenta-comercial-de-etiqueta-de-porcentagem.png" alt="">
+            <h1 id="porcentagemAcertos"></h1>
         </div>
         <div class="kpi4">
-            <h1></h1>
+            <img src="../assets/ferramenta-comercial-de-etiqueta-de-porcentagem (1).png" alt="">
+            <h1 id="porcentagemErros"></h1>
         </div>
     </section>
 
@@ -91,12 +96,13 @@
 
     let proximaAtualizacao;
     let myChart;
-    
+
 
     window.onload = function () {
         var fkAluno = sessionStorage.getItem('ID_ALUNO'); // Recupera o valor do sessionStorage
         if (fkAluno) {
             obterDados(fkAluno); // Passa o valor correto para a função
+            atualizarKpis(fkAluno);
         } else {
             console.error("ID_ALUNO não está definido no sessionStorage.");
         }
@@ -140,20 +146,20 @@
             labels: labels,
             datasets: [
                 {
-                label: 'Pontuações',
-                data: [],
-                fill: false,
-                backgroundColor: '#5FA89D',
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                    label: 'Pontuações',
+                    data: [],
+                    fill: false,
+                    backgroundColor: '#29A24C',
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
                 },
                 {
-                label: 'Quantidade de Erros',
-                data: somaErros,
-                fill: false,
-                backgroundColor: '#81dacc',
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                    label: 'Quantidade de Erros',
+                    data: somaErros,
+                    fill: false,
+                    backgroundColor: '#C56A47',
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
                 }
             ]
         };
@@ -199,50 +205,26 @@
         setTimeout(() => atualizarGrafico(fkAluno, dados, myChart), 2000);
     }
 
-    //  Atualizando grafico
-    function atualizarGrafico(fkAluno, dados, myChart) {
-
-        fetch(`/quiz/tempo-real/${fkAluno}`, { cache: 'no-store' }).then(function (response) {
+    function atualizarKpis(fkAluno) {
+        fetch(`/quiz/estatisticas/${fkAluno}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
-                response.json().then(function (novoRegistro) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos para kpi: ${JSON.stringify(resposta)}`);
 
-                    obterDados(fkAluno);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
+                    totalAcertos.innerHTML = `Total de acertos: <span class="numero-acertos">${resposta.totalAcertos}</span>`;
+                    totalErros.innerHTML = `Total de erros: <span class="numero-erros">${resposta.totalErros}</span>`;
+                    porcentagemAcertos.innerHTML = `Acertos (%): <span class="numero-acertos">${Number(resposta.porcentagemAcertos).toFixed(2)}</span>`;
+                    porcentagemErros.innerHTML = `Erros (%): <span class="numero-erros">${Number(resposta.porcentagemErros).toFixed(2)}</span>`;
 
-                    if (novoRegistro[0].somaPontuacao == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].somaPontuacao)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].somaPontuacao); // incluir um novo momento
 
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].pontuacaoFinal); // incluir uma nova medida de umidade
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(fkAluno, dados, myChart), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(fkAluno, dados, myChart), 2000);
             }
         })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-
     }
 
 </script>

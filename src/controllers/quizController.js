@@ -80,9 +80,32 @@ function buscarMedidasEmTempoReal(req, res) {
     });
 }
 
+function buscarEstatisticas(req, res) {
+    var fkAluno = req.params.fkAluno;
+
+    if (!fkAluno) {
+        console.log("Parâmetro fkAluno não foi fornecido!");
+    }
+
+    console.log(`Recuperando estatisticas em tempo real`);
+
+    quizModel.buscarEstatisticas(fkAluno).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado[0]);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas estatisticas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 
 module.exports = {
     cadastrarPontuacao,
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarEstatisticas
 }
