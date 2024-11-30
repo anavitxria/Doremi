@@ -28,7 +28,7 @@
                 <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
                     <span id="spanPontuacaoFinal">***</span>
                 </span>
-                <span id="msgFinal" class="width-fit-content">***</span>
+                <span id="msgFinal" class="width-fit-content-final">***</span>
             </div>
         </div>
 
@@ -69,7 +69,7 @@
             <div id="botoes" class="flex-colunar padding-8">
                 <button onclick="submeter()" id="btnSubmeter">Acertou?</button>
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button>
+                <!-- <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button> -->
             </div>
 
         </div>
@@ -160,7 +160,7 @@
         btnSubmeter.disabled = false
         btnProx.disabled = true
         // btnConcluir.disabled = true
-        btnTentarNovamente.disabled = true
+        // btnTentarNovamente.disabled = true
     }
 
     function preencherHTMLcomQuestaoAtual(index) {
@@ -317,7 +317,7 @@
 
         btnProx.disabled = true
         btnSubmeter.disabled = true
-        btnTentarNovamente.disabled = false
+        // btnTentarNovamente.disabled = false
 
         cadastrarPontuacao();
     }

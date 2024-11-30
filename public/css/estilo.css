@@ -4,6 +4,10 @@ body::-webkit-scrollbar {
   width: 8px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body::-webkit-scrollbar-track {
   background-color: #ffffff;
 }
@@ -99,6 +103,7 @@ body {
   color: white;
   background-image: url('../assets/Frame\ 2.png');
   background-size: cover;
+  cursor: default;
 }
 
 .banner .container {
@@ -129,6 +134,7 @@ body {
   background-image: url(../assets/Frame\ 3.png);
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: default;
 }
 
 .social .container {

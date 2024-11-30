@@ -94,24 +94,14 @@ button {
     margin-bottom: 5px;
 }
 
-#btnTentarNovamente {
-    padding: 10px 20px;
-    background-color: #dc521b;
-    color: white;
-    border: 3px solid #973711;
-    border-radius: 50px;
-}
-
 .width-fit-content {
-    width: fit-content;
+    font-size: 18px;
+    letter-spacing: -1px;
+    color: #DC521A;
+    font-weight: 600;
     background-color: #fbd9c3c0;
     padding: 20px;
-    border-radius: 18px;
 }
-
-/* .border-primary {
-    border: 3px solid var(--primary-brand-color);
-} */
 
 .border-secondary {
     border: 3px solid #dfbaa2;
@@ -166,4 +156,13 @@ button {
     color: #6B907A;
     font-size: 15px;
     font-weight: 800;
+}
+
+.width-fit-content-final {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    background-color: #ff6f7e83;
+    color: #990c19;
+    padding: 20px;
 }
