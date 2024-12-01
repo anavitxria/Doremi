@@ -49,10 +49,11 @@
 </html>
 
 <script>
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
+  // Array para armazenar professores cadastrados(a) 
   let listaProfessoresCadastrados = 0;
   window.onload = listarUltimoProfessor();
 
+  //essa função pega o último professor cadastrado, joga dentro do json, e armazena na session
   function listarUltimoProfessor() {
     fetch(`/usuarios/listarUltimoProfessor`)
       .then(resposta => {
@@ -107,7 +108,7 @@
         return false
       }
 
-      if (emailVar.indexOf('@') == false && emailVar.indexOf('@') == false) {
+      if (emailVar.indexOf('@')) {
         Swal.fire("Insira um email valido");
         return false
       }
@@ -129,7 +130,7 @@
 
       return false;
     }
-
+    //api,routes
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
@@ -154,12 +155,13 @@
             text: "Faça o login!",
             icon: "success"
           });
-
+          // encaminha para login
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
 
         } else {
+          // popup
           Swal.fire({
             title: "Houve um erro ao tentar realizar o cadastro!",
             text: "Verifique os campos de entrada.",
@@ -175,6 +177,7 @@
     return false;
   }
 
+// armazena o id do professor na session
   sessionStorage.ID_PROFESSOR = listaProfessoresCadastrados;
 
 </script>

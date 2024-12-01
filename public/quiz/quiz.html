@@ -69,7 +69,6 @@
             <div id="botoes" class="flex-colunar padding-8">
                 <button onclick="submeter()" id="btnSubmeter">Acertou?</button>
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
-                <!-- <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Tentar novamente</button> -->
             </div>
 
         </div>
@@ -317,7 +316,6 @@
 
         btnProx.disabled = true
         btnSubmeter.disabled = true
-        // btnTentarNovamente.disabled = false
 
         cadastrarPontuacao();
     }
@@ -338,6 +336,7 @@
         console.log("Quantidade Certas: ", quantidadeCertasVar);
         console.log("Quantidade Erradas: ", quantidadeErradasVar);
 
+        //api,routes
         fetch("/quiz/salvarResultado", {
             method: "POST",
             headers: {
@@ -358,7 +357,7 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-
+                    //encaminha para dash
                     setTimeout(function () {
                         window.location = "../dashboard/dashDoremi.html";
                     }, 3000);

@@ -63,6 +63,7 @@
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
+        //api, envia para routes
         fetch("/usuarios/autenticar", {
             method: "POST",
             headers: {
@@ -87,13 +88,14 @@
                         text: "Bem vindo a Dorémi!",
                         icon: "success"
                     });
-
+                    // armazena os dados na session
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.SENHA_USUARIO = json.senha;
                     sessionStorage.ID_ALUNO = json.idAluno;
                     sessionStorage.ID_PROFESSOR = json.fkProfessor;
 
+                    // encaminha para o quiz
                     setTimeout(function () {
                         window.location = "./quiz/quiz.html";
                     }, 2000);

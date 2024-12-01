@@ -59,6 +59,7 @@
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
+        //API, ele vai para Routes
         fetch("/usuarios/autenticarProfessor", {
             method: "POST",
             headers: {
@@ -78,17 +79,20 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
 
+                    //Alert
                     Swal.fire({
                         title: "Login realizado!",
                         text: "Bem vindo a Dorémi!",
                         icon: "success"
                     });
 
+                    //Armazena os dados na session storage
                     sessionStorage.EMAIL_PROFESSOR = json.email;
                     sessionStorage.NOME_PROFESSOR = json.nome;
                     sessionStorage.SENHA_PROFESSOR = json.senha;
                     sessionStorage.ID_PROFESSOR = json.idProfessor;
                     
+                    //Encaminha para a dashboard
                     setTimeout(function () {
                         window.location = "../dashboard/dashProf.html";
                     }, 1000);

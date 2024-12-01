@@ -66,7 +66,7 @@
                 return false
             }
 
-            if (emailVar.indexOf('@') == false && emailVar.indexOf('@') == false) {
+            if (emailVar.indexOf('@')) {
                 Swal.fire("Insira um email valido");
                 return false
             }
@@ -78,7 +78,7 @@
 
             return false;
         }
-
+        // api, routes
         fetch("/usuarios/cadastrar_professor", {
             method: "POST",
             headers: {
@@ -99,7 +99,7 @@
                         text: "Faça o login!",
                         icon: "success"
                     });
-
+                    //encaminha para login
                     setTimeout(() => {
                         window.location = "loginProfessor.html";
                     }, "1500");
