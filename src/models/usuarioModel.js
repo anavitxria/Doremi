@@ -59,7 +59,9 @@ function obterDadosAluno(idProfessor) {
     var instrucaoSql = `SELECT 
                             Aluno.idAluno AS idAluno,
                             Aluno.nome AS Nome,
-                            SUM(Resultado.pontuacaoFinal) AS PontuacaoTotal
+                            SUM(Resultado.pontuacaoFinal) AS QuantidadeDeAcertos,
+                            (SUM(qtdAcertos) * 100.0) / (SUM(qtdAcertos) + SUM(qtdErros)) AS porcentagemAcertos,
+							(SUM(qtdErros) * 100.0) / (SUM(qtdAcertos) + SUM(qtdErros)) AS porcentagemErros
                         FROM 
                             Professor
                         INNER JOIN 

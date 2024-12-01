@@ -81,8 +81,13 @@
     </section>
 
     <section class="graphics">
-        <div class="umi" id="canva">
-            <canvas id="myChartCanvas"></canvas>
+        <div class="content">
+            <div class="umi" id="canva">
+                <canvas id="myChartCanvas"></canvas>
+            </div>
+            <div class="pizza" id="canva">
+                <canvas id="myChartCanvas2"></canvas>
+            </div>
         </div>
     </section>
 
@@ -98,6 +103,7 @@
 
     let proximaAtualizacao;
     let myChart;
+    let myChart2;
 
 
     window.onload = function () {
@@ -148,7 +154,7 @@
             labels: labels,
             datasets: [
                 {
-                    label: 'Pontuações',
+                    label: 'Quantidade de Acertos',
                     data: [],
                     fill: false,
                     backgroundColor: '#29A24C',
@@ -199,12 +205,6 @@
             document.getElementById(`myChartCanvas`),
             config
         );
-
-        if (proximaAtualizacao) {
-            clearTimeout(proximaAtualizacao);
-        }
-
-        // setTimeout(() => atualizarGrafico(fkAluno, dados, myChart), 2000);
     }
 
     function atualizarKpis(fkAluno) {
@@ -218,6 +218,8 @@
                     porcentagemAcertos.innerHTML = `Acertos (%): <span class="numero-acertos">${Number(resposta.porcentagemAcertos).toFixed(2)}</span>`;
                     porcentagemErros.innerHTML = `Erros (%): <span class="numero-erros">${Number(resposta.porcentagemErros).toFixed(2)}</span>`;
 
+                    plotarGraficoPorcentagem(resposta);
+
 
                 });
             } else {
@@ -228,5 +230,75 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
+
+
+    function plotarGraficoPorcentagem(resposta) {
+
+        if (myChart2) {
+            myChart2.destroy();
+        }
+
+        console.log('iniciando plotagem do gráfico de pizza...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = []; //Array que armazena a somaPontuacao
+        let porcentagemErros = []; // Array que armazena a somaErros
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: [
+                'Acertos',
+                'Erros'
+            ],
+            datasets: [
+                {
+                    label: labels,
+                    data: [resposta.porcentagemAcertos, resposta.porcentagemErros],
+                    fill: false,
+                    backgroundColor: [
+                        '#2AA44D',
+                        '#C66B48'
+                    ],
+                    
+                    tension: 0.1
+                },
+            ]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.porcentagemAcertos);
+            dados.datasets[0].data.push(registro.porcentagemAcertos);
+
+            porcentagemErros.push(registro.porcentagemErros);
+            dados.datasets[1].data.push(registro.porcentagemErros);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config2 = {
+            type: 'pie',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        myChart2 = new Chart(
+            document.getElementById(`myChartCanvas2`),
+            config2
+        );
+    }
+
 
 </script>

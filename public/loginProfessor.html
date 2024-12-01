@@ -102,6 +102,11 @@
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
+                Swal.fire({
+                        title: "Erro ao fazer login!",
+                        text: "Verifique seus campos de entrada",
+                        icon: "error"
+                    });
             }
 
         }).catch(function (erro) {

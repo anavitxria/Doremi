@@ -116,7 +116,10 @@
                     divKpi.innerHTML = `
                     <strong>RA:</strong> ${aluno.idAluno} <br>
                     <strong>Nome:</strong> ${aluno.Nome} <br>
-                    <strong>Pontuação Total:</strong> ${aluno.PontuacaoTotal}
+                    <strong>Quantidade de Acertos:</strong> ${aluno.QuantidadeDeAcertos}<br>
+                    <strong>Porcentagem Acertos:</strong> ${Number(aluno.porcentagemAcertos).toFixed(2)}<br>
+                    <strong>Porcentagem Erros:</strong> ${Number(aluno.porcentagemErros).toFixed(2)}<br>
+                    
                 `;
                 }
             }
